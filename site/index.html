@@ -1,0 +1,31 @@
+<!--------------------------------------------------------------------
+--
+-- index.html
+-- Top-level HTML for Code Mirror custom element demo.
+-- Copyright (c) 2018 Bill St. Clair <billstclair@gmail.com>
+-- Some rights reserved.
+-- Distributed under the MIT License
+-- See LICENSE.txt
+--
+---------------------------------------------------------------------->
+
+<html>
+  <head>
+    <title>Code Editor Custom Element Demo</title>
+    <script type='text/javascript' src='elm.js'></script>
+    <script type='text/javascript' src='code-editor.js'></script>
+    <link rel='stylesheet' href='lib/codemirror.css'>
+    <script type='text/javascript' src='lib/codemirror.js'></script>
+    <script type='text/javascript' src='lib/elm.js'></script>
+  </head>
+  <body>
+    <div id='elm'></div>
+    <script type='text/javascript'>
+
+var app = Elm['Main'].init({
+  node: document.getElementById('elm')
+});
+
+    </script>
+  </body>
+</html>

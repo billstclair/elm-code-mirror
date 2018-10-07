@@ -1,0 +1,71 @@
+https://guide.elm-lang.org/interop/custom_elements.html
+
+Luke Westby's Elm Europe talk.
+
+Use a port. Or not.
+
+https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements
+https://github.com/webcomponents/custom-elements
+
+1. Always use leaf nodes
+2. Don't use `value`.
+
+The normal Elm way with supported components is hugely easier than ports.
+
+Main.elm
+--------
+
+Html.textarea
+    [ value model.code
+    , onInput CodeChanged
+    ]
+
+Html.node "code-editor"
+  [ Html.Attributes.property "editorValue" <|
+      Encode.string model.value
+  , Html.Events.on "editorChanged"
+      <| Json.Decode.map CodeChanged
+      <| Json.Decode.at ["target", "editorValue"]
+      <| Json.Decode.string
+  ]
+  []
+
+
+CodeEditor.js
+--------------
+
+import 'codemirror/lib/codemirror.css'
+import CodeMirror from 'codemirror'
+import 'codemirror/mode/elm/elm.js'
+
+customElements.define('code-editor', class extends HTMLElement {
+  constructor() {
+    super();
+    this._editorValue = 'module Main exposing (..)';
+  }
+
+  get editorValue() {
+    return this._editorValue
+  }
+
+  set editorValue(value) {
+    if (this._editorValue === value) return;
+    this._editorValue = value;
+    if (!this._editor) return;
+    this._editor.setValue(value);
+  }
+
+  connectedCallback() {
+    this._editor = CodeMirror(this, {
+      identUnit: 4,
+      mode: 'elm',
+      lineNumbers: true,
+      value: 'module Main exposing (..)'
+    });
+
+    this._editor.on('changes', () => {
+      this._editorValue = this.editor.getValue();
+      this.dispatchEvent(new CustomEvent('editorChanged'));
+    });
+  }
+})
