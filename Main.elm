@@ -42,12 +42,11 @@ type Msg
 init : () -> ( Model, Cmd Msg )
 init () =
     ( { value =
-            """module Main exposing (main)
-
-import Html
-
-main = Html.text "Hello, World!"
-"""
+            "module Main exposing (main)"
+                ++ "\n\n"
+                ++ "import Html"
+                ++ "\n\n"
+                ++ "main = Html.text \"Hello, World!\""
       }
     , Cmd.none
     )
