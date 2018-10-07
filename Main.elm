@@ -14,7 +14,7 @@ module Main exposing (main)
 
 import Browser
 import Char
-import Html exposing (Attribute, Html, a, br, div, p, pre, text)
+import Html exposing (Attribute, Html, a, br, div, h2, p, pre, text)
 import Html.Attributes exposing (href, property)
 import Html.Events exposing (on)
 import Json.Decode as JD exposing (Decoder)
@@ -95,7 +95,8 @@ copyright =
 view : Model -> Html Msg
 view model =
     div []
-        [ codeEditor
+        [ h2 [] [ text "Code Mirror Custom Element from Elm" ]
+        , codeEditor
             [ editorValue model.value
             , onEditorChanged CodeChanged
             ]
@@ -105,7 +106,7 @@ view model =
         , pre []
             [ text model.value ]
         , p []
-            [ text <| copyright ++ " 2017-2018 "
+            [ text <| copyright ++ " 2018 "
             , a [ href "https://lisplog.org/" ]
                 [ text "Bill St. Clair" ]
             , br [] []

@@ -12,7 +12,7 @@
 customElements.define('code-editor', class extends HTMLElement {
   constructor() {
     super();
-    this._editorValue = "-- You shouldn't see this.";
+    this._editorValue = "-- If you see this, the Elm code didn't set the value."
   }
 
   get editorValue() {
@@ -31,7 +31,7 @@ customElements.define('code-editor', class extends HTMLElement {
       identUnit: 4,
       mode: 'elm',
       lineNumbers: true,
-      value: this._editorValue || "-- You shouldn't see this"
+      value: this._editorValue
     });
 
     this._editor.on('changes', () => {
