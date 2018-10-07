@@ -47,7 +47,7 @@ init () =
 import Html
 
 main = Html.text "Hello, World!"
-       """
+"""
       }
     , Cmd.none
     )
